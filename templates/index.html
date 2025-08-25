@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI-Powered Resume Ranker</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <div class="container">
+    <h1>AI-Powered Resume Ranker</h1>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="flash">
+          {% for m in messages %}<div class="flash-item">{{ m }}</div>{% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <form action="{{ url_for('rank') }}" method="post" enctype="multipart/form-data" class="card">
+      <label for="jd_text">Job Description (paste text)</label>
+      <textarea id="jd_text" name="jd_text" rows="8" required placeholder="Paste the full JD..."></textarea>
+
+      <label for="extra_keywords">Extra keywords to emphasize (comma/space separated, optional)</label>
+      <input id="extra_keywords" name="extra_keywords" type="text" placeholder="e.g., docker, kubernetes, react">
+
+      <label for="alpha">Weight: Similarity vs. Keyword Coverage (0 = keywords only, 1 = similarity only)</label>
+      <input id="alpha" name="alpha" type="range" min="0" max="1" step="0.05" value="0.7" oninput="alphaOut.value = alpha.value">
+      <output id="alphaOut">0.7</output>
+
+      <label for="resumes">Upload PDF resumes (multiple allowed)</label>
+      <input id="resumes" name="resumes" type="file" accept=".pdf" multiple required>
+
+      <button class="btn" type="submit">Rank Candidates</button>
+    </form>
+
+    <div class="footer">
+      <p>Built with Flask · SpaCy · scikit‑learn · TF‑IDF · PyPDF2</p>
+    </div>
+  </div>
+</body>
+</html>

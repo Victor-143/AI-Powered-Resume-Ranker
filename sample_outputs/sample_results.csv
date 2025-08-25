@@ -1,0 +1,4 @@
+rank,filename,final_score,cosine_similarity,keyword_score
+1,alice_resume.pdf,0.8123,0.7901,0.8542
+2,bob_resume.pdf,0.7021,0.6802,0.7410
+3,charlie_resume.pdf,0.5510,0.5300,0.5884
